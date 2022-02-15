@@ -1,5 +1,9 @@
 package application;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class App {
 	
 	private String name;
@@ -14,14 +18,21 @@ public class App {
 	}
 	
 	private void run() {
-		class Printer {
+		class Printer implements Runnable {
+			@Override
+			public void run() {
+				print();
+			}
+			
 			public void print() {
 				System.out.println("My name is " + name);
 			}
 		}
 		
-		new Printer().print();
-		System.out.println(name);
+		Printer printer = new Printer();
+
+		ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+		executor.scheduleAtFixedRate(new Printer(), 0, 1, TimeUnit.SECONDS);
 	}
 
 }
