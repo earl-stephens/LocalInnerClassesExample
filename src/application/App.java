@@ -21,7 +21,10 @@ public class App {
 		class Printer implements Runnable {
 			@Override
 			public void run() {
-			//public void print() {
+				print();
+			}
+			
+			public void print() {
 				System.out.println("My name is " + name);
 			}
 		}
